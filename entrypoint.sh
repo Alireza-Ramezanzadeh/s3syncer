@@ -11,7 +11,7 @@ echo "[INIT] Rendering nginx.conf..."
 envsubst '${S3_BUCKET} ${S3_ENDPOINT}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 echo "[INIT] Running initial full sync..."
-mc mirror "$UPLOADS_PATH" "$S3_TARGET"
+mc mirror --overwrite "$UPLOADS_PATH" "$S3_TARGET"
 
 echo "[WATCH] Watching $UPLOADS_PATH..."
 
