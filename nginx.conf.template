@@ -18,7 +18,7 @@ http {
 
         # Proxy media requests to S3
         location ~ ^/wp-content/uploads/(.*)$ {
-            proxy_pass ${S3_ENDPOINT}/${S3_BUCKET}/$1;
+            proxy_pass ${S3_ENDPOINT}${S3_BUCKET}/$1;
 
             proxy_cache uploads_cache;
             proxy_cache_valid 200 302 60m;
