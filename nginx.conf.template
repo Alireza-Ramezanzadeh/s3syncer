@@ -8,6 +8,9 @@ http {
     include       mime.types;
     default_type  application/octet-stream;
 
+    resolver 1.1.1.1 8.8.8.8 valid=30s;
+    resolver_timeout 5s;
+
     proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=uploads_cache:10m max_size=1g inactive=60m use_temp_path=off;
 
     server {
@@ -15,7 +18,7 @@ http {
 
         # Proxy media requests to S3
         location ~ ^/wp-content/uploads/(.*)$ {
-            proxy_pass https://${S3_ENDPOINT}/${S3_BUCKET}/$1;
+            proxy_pass ${S3_ENDPOINT}/${S3_BUCKET}/$1;
 
             proxy_cache uploads_cache;
             proxy_cache_valid 200 302 60m;

@@ -5,7 +5,7 @@ S3_ALIAS="s3"
 S3_TARGET="$S3_ALIAS/$S3_BUCKET"
 
 echo "[INIT] Configuring mc..."
-mc alias set "$S3_ALIAS" "$S3_ENDPOINT" "$AWS_ACCESS_KEY_ID" "$AWS_SECRET_ACCESS_KEY"
+mc alias set "$S3_ALIAS" "$S3_ENDPOINT" "$S3_KEY" "$S3_SECRET"
 
 echo "[INIT] Rendering nginx.conf..."
 envsubst '${S3_BUCKET} ${S3_ENDPOINT}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
@@ -53,7 +53,7 @@ inotifywait -mrq -e create,modify,delete,move "$UPLOADS_PATH" --format '%e|%w|%f
       ;;
   esac
 
-  sleep 0.2
+  sleep 0.02
 done &
 
 echo "[NGINX] Starting NGINX..."
